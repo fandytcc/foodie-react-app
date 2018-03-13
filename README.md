@@ -24,7 +24,6 @@ These are the steps I plan to work on this app:
 8. Styling with the latest [material-ui@next](https://material-ui-next.com/)
 
 ## Work-in-progress
-28th Feb:
 * start working on step 1 & 2 as mentioned above
 * implementing Google Map API
 
@@ -34,4 +33,3 @@ For more information about using React-Redux, ExpressJS and Mongoose, see these 
 * [React](https://facebook.github.io/react-native/)
 * [Redux](https://redux.js.org/)
 * [material-ui@next](https://material-ui-next.com/)
-# food-react-app
