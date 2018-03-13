@@ -1,0 +1,22 @@
+.block {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+}
+
+.G {
+  background: #4ECDC4;
+}
+
+.Y {
+  background: #FFE66D;
+}
+
+.R {
+  background: #FF6B6B;
+}
+
+.W {
+  background: rgba(222, 222, 222, 0.7);
+}
