@@ -315,12 +315,6 @@ const mapStateToProps = ( { restaurants }, { match }) => ({
   recipe: restaurants.selectedRecipe
 })
 
-//job-to-be-done... change all match.params.recipeId to recipe._id: find recipe under fetchOneRestaurant to ensure rendering of next recipe works..
-// const mapStateToProps = ( { restaurants }, { match }) => ({
-//   restaurant: restaurants.selectedRestaurant,
-//   recipe: restaurants.recipesPerRestaurant.find(recipe => recipe._id === match.params.recipeId)
-// })
-
 export default connect(mapStateToProps, {
 fetchOneRestaurant,
 fetchOneRecipe,

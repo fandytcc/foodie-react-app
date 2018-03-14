@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Navigation from './components/UI/Navigation'
-// import Routes from './routes' <Route />
+import Routes from './routes'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import createMuiTheme from './styles/theme'
 // import Map from './components/Map'
@@ -25,6 +25,7 @@ class App extends Component {
       <MuiThemeProvider theme={createMuiTheme}>
         <div className="App">
           <Navigation />
+          <Routes />
         </div>
       </MuiThemeProvider>
     )

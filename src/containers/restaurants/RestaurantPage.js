@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import RecipeItem from '../../containers/recipes/RecipeItem'
-import { recipeShape } from '../../containers/recipes/RecipePage'
 import { fetchOneRestaurant } from '../../actions/restaurants/fetch'
-import RecipeEditor from '../../containers/recipes/RecipeEditor'
+import { reviewShape } from '../../containers/reviews/ReviewPage'
+// import RecipeItem from '../../containers/recipes/RecipeItem'
+// import RecipeEditor from '../../containers/recipes/RecipeEditor'
+
 //material-ui & styling
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
@@ -25,10 +26,39 @@ const style = {
 
 export const restaurantShape = PropTypes.shape({
   _id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  recipes: PropTypes.arrayOf(recipeShape),
-  startDate: PropTypes.string,
-  endDate: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  summary: PropTypes.string.isRequied,
+  phone: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  location: PropTypes.shape({
+    address: PropTypes.string.isRequired,
+    postalCode: PropTypes.string.isRequired,
+    district: PropTypes.string,
+    city: PropTypes.string,
+    country: PropTypes.string.isRequired,
+    geo: PropTypes.array.isRequired
+  }),
+  photos: PropTypes.array,
+  price: PropTypes.shape({
+    cheapEats: PropTypes.bool,
+    midRange: PropTypes.bool,
+    fineDining: PropTypes.bool,
+  }),
+  type: PropTypes.shape({
+    breakfast: PropTypes.bool,
+    lunch: PropTypes.bool,
+    dinner: PropTypes.bool,
+    cafe: PropTypes.bool,
+    deseert: PropTypes.bool,
+  }),
+  dietaryType: PropTypes.shape({
+    vegetarian: PropTypes.bool,
+    vegan: PropTypes.bool,
+    halal: PropTypes.bool,
+    glutenfree: PropTypes.bool,
+  }),
+  avgRating: PropTypes.number,
+  reviews: PropTypes.arrayOf(reviewShape)
 })
 
 class RestaurantPage extends PureComponent {
@@ -45,10 +75,10 @@ class RestaurantPage extends PureComponent {
   componentWillMount() {
     this.props.fetchOneRestaurant(this.props.match.params.restaurantId)
   }
-
-  renderRecipe(recipe, index) {
-    return <RecipeItem key={index} restaurantId={this.props.match.params.restaurantId} { ...recipe } />
-  }
+  // 
+  // renderRecipe(recipe, index) {
+  //   return <RecipeItem key={index} restaurantId={this.props.match.params.restaurantId} { ...recipe } />
+  // }
 
   createWeightedList(list, weight) {
     const weightedList = []
