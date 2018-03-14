@@ -4,39 +4,51 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { restaurantShape } from './RestaurantPage'
 //material-ui
-import Title from '../../components/UI/Title'
-import Paper from 'material-ui/Paper'
+import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import Typography from 'material-ui/Typography'
 
-//style Paper
-const style = {
-  height: 250,
-  width: 300,
-  margin: 20,
-  textAlign: 'center',
-  display: 'inline-block'
+//style Card
+const styles = {
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 200,
+  },
 }
 
 class RestaurantItem extends PureComponent {
   static propTypes = {
     ...restaurantShape.isRequired,
-}
+  }
 
   render() {
-    const { _id, title, recipes, startDate, endDate } = this.props
-    const startDateString = (new Date(startDate)).toDateString()
-    const endDateString = (new Date(endDate)).toDateString()
+    console.log(this.props)
+    const { _id, name, reviews, price, photos  } = this.props
+    const reviewCount = reviews.length
 
     return (
-      <Paper className="RestaurantItem" style={style} elevation={2}>
-        <Link to={`/restaurants/${_id}`}>
-          <Title content={`Restaurant #${title}`} className="level-2" />
-        </Link>
-        <div style={{textAlign: 'center'}}>
-          <p>{ recipes.length } recipes</p>
-          <p>Start Date: { startDateString } </p>
-          <p>End Date: { endDateString } </p>
-        </div>
-      </Paper>
+      <div className="restaurant-item">
+        <Card className="restaurant-wrapper" style={ styles.card }>
+          <Link to={`/restaurants/${_id}`}>
+            <CardMedia
+              className="restaurant-photo"
+              style={ styles.media }
+              image= { photos[0] }
+              title= "Restaurant Item"
+            />
+          </Link>
+          <CardContent>
+            <Typography variant="headline" component="h2">
+              { name }
+            </Typography>
+            <Typography component="p">
+              { price }
+              { reviewCount } Reviews
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
     )
   }
 }
