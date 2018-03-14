@@ -68,103 +68,28 @@ class RestaurantPage extends PureComponent {
 
   static propTypes = {
     ...restaurantShape.isRequired,
-    result: PropTypes.string,
     fetchOneRestaurant: PropTypes.func.isRequied
   }
 
   componentWillMount() {
     this.props.fetchOneRestaurant(this.props.match.params.restaurantId)
   }
-  // 
+  //
   // renderRecipe(recipe, index) {
   //   return <RecipeItem key={index} restaurantId={this.props.match.params.restaurantId} { ...recipe } />
-  // }
-
-  createWeightedList(list, weight) {
-    const weightedList = []
-
-    for (let i=0; i < weight.length; i++) {
-      let multiples = weight[i] * 100
-
-      for (let j=0; j < multiples; j++) {
-        weightedList.push(list[i])
-      }
-    }
-    return weightedList
-  }
-
-  getRandomNum(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-
-  getRandomRecipe(event) {
-    event.preventDefault()
-    const { recipes } = this.props.restaurant
-
-    const colorList = ["G", "Y", "R"]
-    const weight = [0.21, 0.32, 0.47]
-    const weightedList = this.createWeightedList(colorList, weight)
-    const randomNum = this.getRandomNum(0, weightedList.length-1)
-    const randomColor = weightedList[randomNum]
-
-    const greenRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "G")
-    const yellowRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "Y")
-    const redRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "R")
-
-    let result =""
-    let result2 = ""
-      if (randomColor === "G") {
-        const randomNum = this.getRandomNum(0, greenRecipes.length-1)
-        result = greenRecipes && greenRecipes[randomNum].name
-        result2 = greenRecipes && greenRecipes[randomNum].photo
-      } else if (randomColor === "Y") {
-        const randomNum = this.getRandomNum(0, yellowRecipes.length-1)
-        result = yellowRecipes && yellowRecipes[randomNum].name
-        result2 = yellowRecipes && yellowRecipes[randomNum].photo
-      } else if (randomColor === "R") {
-        const randomNum = this.getRandomNum(0, redRecipes.length-1)
-        result = redRecipes && redRecipes[randomNum].name
-        result2 = redRecipes && redRecipes[randomNum].photo
-      }
-      alert(result)
-      alert(result2)
-  }
-
-//dialogue - ask a question
-  // handleClose = () => {
-  //   this.props.onClose(this.props.selectedValue);
-  // }
-  //
-  // handleListItemClick = value => {
-  //   this.props.onClose(value);
   // }
 
   render() {
     if (!this.props.restaurant) return null
 
-    const { _id, title, recipes } = this.props.restaurant
-    // console.log(this.props.match.params.restaurantId)
-    const restaurantSize = recipes.length
-
-    const greenRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "G")
-    const redRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "R")
-    const yellowRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "Y")
-
-    const greenPercentage = Math.round(greenRecipes.length/restaurantSize*100)
-    const redPercentage = Math.round(redRecipes.length/restaurantSize*100)
-    const yellowPercentage = Math.round(yellowRecipes.length/restaurantSize*100)
+    const { _id, name, reviews } = this.props.restaurant
+    // console.log(this.props.match.params.restaurantId
 
     return (
       <article className="restaurant-page">
-        <Paper style={style}>
-          <div className="recipe-editor">
-            <RecipeEditor restaurantId={this.props.match.params.restaurantId} />
-          </div>
-        </Paper>
-
         <header className="blocks-wrapper">
           <Typography variant="display1">
-            Recipes Overview in Restaurant#{title}
+            Recipes Overview in Restaurant#{name}
           </Typography>
 
           <Typography variant="display1" style={{float:'left', marginRight: 20}}>Evaluations Overview</Typography>
@@ -176,32 +101,18 @@ class RestaurantPage extends PureComponent {
             onClick={this.getRandomRecipe.bind(this)}>
             Ask a question
           </Button>
-
-          <div className="evaluation-overview">
-            <div className="color-block" style={{width:`${greenPercentage}%`, background: "#4ECDC4"}}>
-              <p>{greenPercentage ? greenPercentage : '0'}%</p>
-            </div>
-
-            <div className="color-block" style={{width:`${yellowPercentage}%`, background: "#FFE66D"}}>
-              <p>{yellowPercentage ? yellowPercentage : '0'}%</p>
-            </div>
-
-            <div className="color-block" style={{width:`${redPercentage}%`, background: "#FF6B6B"}}>
-              <p>{redPercentage ? redPercentage : '0'}%</p>
-            </div>
-          </div>
         </header>
-
-        <main className="recipes-wrapper">
-          <div className="recipes">
-            {recipes.map(this.renderRecipe.bind(this))}
-          </div>
-        </main>
 
       </article>
     )
   }
 }
+
+  // <main className="recipes-wrapper">
+  //   <div className="recipes">
+  //     {recipes.map(this.renderRecipe.bind(this))}
+  //   </div>
+  // </main>
 
 const mapStateToProps = state => ({
   restaurant: state.restaurants.selectedRestaurant,
