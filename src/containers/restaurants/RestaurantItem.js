@@ -22,9 +22,15 @@ class RestaurantItem extends PureComponent {
     ...restaurantShape.isRequired,
   }
 
+  renderPrice(price, i) {
+    if(price[i] === true) {
+      return i
+    }
+  }
+
   render() {
     console.log(this.props)
-    const { _id, name, reviews, price, photos  } = this.props
+    const { _id, name, reviews, price, photos, avgRating  } = this.props
     const reviewCount = reviews.length
 
     return (
@@ -34,7 +40,7 @@ class RestaurantItem extends PureComponent {
             <CardMedia
               className="restaurant-photo"
               style={ styles.media }
-              image= { photos[0] }
+              image= { photos[0].url }
               title= "Restaurant Item"
             />
           </Link>
@@ -43,7 +49,10 @@ class RestaurantItem extends PureComponent {
               { name }
             </Typography>
             <Typography component="p">
-              { price }
+              { avgRating }
+            </Typography>
+              { this.renderPrice.bind(this) }
+            <Typography component="p">
               { reviewCount } Reviews
             </Typography>
           </CardContent>

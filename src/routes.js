@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import RestaurantsContainer from './containers/restaurants/RestaurantsContainer'
 import RestaurantPage from './containers/restaurants/RestaurantPage'
-import ReviewPage from './containers/restaurants/ReviewPage'
+import ReviewPage from './containers/reviews/ReviewPage'
 import RecipePage from './containers/recipes/RecipePage'
 import { SignIn, SignUp } from './containers'
 
