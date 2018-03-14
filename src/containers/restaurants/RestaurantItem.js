@@ -22,10 +22,15 @@ class RestaurantItem extends PureComponent {
     ...restaurantShape.isRequired,
   }
 
-  renderPrice(price, i) {
-    if(price[i] === true) {
-      return i
-    }
+  renderPrice(price, key) {
+    const priceRange = Object.keys(price).filter(function(key) {
+      return price[key] === true ? key : null
+    })
+    return priceRange[0]
+  }
+
+  renderAvgRating() {
+
   }
 
   render() {
@@ -51,7 +56,7 @@ class RestaurantItem extends PureComponent {
             <Typography component="p">
               { avgRating }
             </Typography>
-              { this.renderPrice.bind(this) }
+              { this.renderPrice(price) }
             <Typography component="p">
               { reviewCount } Reviews
             </Typography>
