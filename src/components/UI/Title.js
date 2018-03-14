@@ -11,7 +11,7 @@ class Title extends PureComponent {
 
   classNames() {
     const { level } = this.props
-    return `Batch id-${level || 1}`
+    return `Restaurant id-${level || 1}`
   }
 
   render() {

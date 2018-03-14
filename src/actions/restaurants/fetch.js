@@ -6,23 +6,23 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 
-export const FETCHED_BATCHES = 'FETCHED_BATCHES'
-export const FETCHED_ONE_BATCH = 'FETCHED_ONE_BATCH'
-export const FETCHED_ONE_STUDENT = 'FETCHED_ONE_STUDENT'
+export const FETCHED_RESTAURANTS = 'FETCHED_RESTAURANTS'
+export const FETCHED_ONE_RESTAURANT = 'FETCHED_ONE_RESTAURANT'
+export const FETCHED_ONE_RECIPE = 'FETCHED_ONE_RECIPE'
 
 const api = new API()
 
-export const fetchBatches = () => {
+export const fetchRestaurants = () => {
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 
-    api.get('/batches')
+    api.get('/restaurants')
       .then((res) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
 
         dispatch({
-          type: FETCHED_BATCHES,
+          type: FETCHED_RESTAURANTS,
           payload: res.body
         })
       })
@@ -36,18 +36,18 @@ export const fetchBatches = () => {
   }
 }
 
-export const fetchOneBatch = (batchId) => {
+export const fetchOneRestaurant = (restaurantId) => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-    api.get(`/batches/${batchId}`)
+    api.get(`/restaurants/${restaurantId}`)
       .then((res) => {
         console.log(res)
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
 
         dispatch({
-          type: FETCHED_ONE_BATCH,
+          type: FETCHED_ONE_RESTAURANT,
           payload: res.body
         })
       })
@@ -61,17 +61,17 @@ export const fetchOneBatch = (batchId) => {
   }
 }
 
-export const fetchOneStudent = (batchId, studentId) => {
+export const fetchOneRecipe = (restaurantId, recipeId) => {
   return dispatch => {
     dispatch({ type: APP_LOADING })
 
-    api.get(`/batches/${batchId}/students/${studentId}`)
+    api.get(`/restaurants/${restaurantId}/recipes/${recipeId}`)
       .then((res) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
 
         dispatch({
-          type: FETCHED_ONE_STUDENT,
+          type: FETCHED_ONE_RECIPE,
           payload: res.body
         })
       })

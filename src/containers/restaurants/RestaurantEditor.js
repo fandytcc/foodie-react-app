@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { createBatch } from '../../actions/batches/create'
+import { createRestaurant } from '../../actions/restaurants/create'
 import Title from '../../components/UI/Title'
 //material-ui & styling
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import './BatchEditor.css'
+import './RestaurantEditor.css'
 
 const style = {
   height: 350,
@@ -16,7 +16,7 @@ const style = {
   display: 'inline-block',
 };
 
-class BatchEditor extends PureComponent {
+class RestaurantEditor extends PureComponent {
   constructor(props) {
     super()
 
@@ -47,22 +47,22 @@ class BatchEditor extends PureComponent {
     })
   }
 
-  saveBatch() {
-    const batch = { ...this.state }
-    this.props.createBatch(batch)
+  saveRestaurant() {
+    const restaurant = { ...this.state }
+    this.props.createRestaurant(restaurant)
   }
 
   render() {
     return (
       <Paper className="editor" style={style} elevation={2}>
-        <Title content="Create New Batch: " />
+        <Title content="Create New Restaurant: " />
 
-        <form onSubmit={this.saveBatch.bind(this)} className="container">
+        <form onSubmit={this.saveRestaurant.bind(this)} className="container">
           <div className="form" style={{margin: 20}}>
             <TextField
               id="title"
               className="text-field"
-              label="Batch Number"
+              label="Restaurant Number"
               value={this.state.title}
               onChange={this.updateTitle.bind(this)}
               margin="dense"
@@ -104,8 +104,8 @@ class BatchEditor extends PureComponent {
               variant="raised"
               className="primary"
               color="primary"
-              onClick={this.saveBatch.bind(this)}>
-            Create Batch
+              onClick={this.saveRestaurant.bind(this)}>
+            Create Restaurant
             </Button>
           </div>
 
@@ -115,6 +115,6 @@ class BatchEditor extends PureComponent {
   }
 }
 
-const mapDispatchToProps = { createBatch }
+const mapDispatchToProps = { createRestaurant }
 
-export default connect(null, mapDispatchToProps)(BatchEditor)
+export default connect(null, mapDispatchToProps)(RestaurantEditor)

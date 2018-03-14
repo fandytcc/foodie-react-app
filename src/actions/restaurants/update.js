@@ -1,4 +1,3 @@
-// src/actions/batches/create.js
 import API from '../../api/client'
 import {
   APP_LOADING,
@@ -7,20 +6,20 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 
-export const BATCH_CREATED = 'BATCH_CREATED'
-export const STUDENT_CREATED = 'STUDENT_CREATED'
-
 const api = new API()
 
-export const createBatch = (newBatch) => {
+export const RECIPE_UPDATED = 'RECIPE_UPDATED'
+export const RECIPE_REMOVED = 'RECIPE_REMOVED'
+
+export const updateRecipe = (restaurantId, recipeId, recipeUpdates) => {
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 
-    api.post('/batches', newBatch)
+    api.patch(`/restaurants/${restaurantId}/recipes/${recipeId}`, recipeUpdates)
       .then((res) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-        dispatch({ type: BATCH_CREATED, payload: res.body })
+        dispatch({ type: RECIPE_UPDATED, payload: res.body })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
@@ -32,15 +31,15 @@ export const createBatch = (newBatch) => {
   }
 }
 
-export const createStudent = (batchId, newStudent) => {
+export const clearRecipe = (restaurantId, recipeId) => {
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 
-    api.post(`/batches/${batchId}/students`, newStudent)
+    api.delete(`/restaurants/${restaurantId}/recipes/${recipeId}`)
       .then((res) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-        dispatch({ type: STUDENT_CREATED, payload: res.body })
+        dispatch({ type: RECIPE_REMOVED, payload: res.body })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })

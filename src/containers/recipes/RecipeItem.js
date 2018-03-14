@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import StudentPage, { studentShape } from './StudentPage'
+import RecipePage, { recipeShape } from './RecipePage'
 //material-ui & styling
 import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card'
-import './StudentItem.css'
+import './RecipeItem.css'
 
 //styling paper
 // const style = {
@@ -32,9 +32,9 @@ const cardStyles = {
   },
 }
 
-class StudentItem extends PureComponent {
+class RecipeItem extends PureComponent {
   static propTypes = {
-    ...studentShape.isRequired,
+    ...recipeShape.isRequired,
   }
 
   classNames() {
@@ -46,15 +46,15 @@ class StudentItem extends PureComponent {
   }
 
   render() {
-    const { _id, name, photo, batchId } = this.props
+    const { _id, name, photo, restaurantId } = this.props
 
     return (
-      <Card className="StudentItem" style={cardStyles.card}>
-        <Link to={`/batches/${batchId}/students/${_id}`}>
-          { photo && <CardMedia style={cardStyles.media} image={ photo } title="student"/> }
+      <Card className="RecipeItem" style={cardStyles.card}>
+        <Link to={`/restaurants/${restaurantId}/recipes/${_id}`}>
+          { photo && <CardMedia style={cardStyles.media} image={ photo } title="recipe"/> }
         </Link>
         <CardContent>
-          <Link to={`/batches/${batchId}/students/${_id}`}>
+          <Link to={`/restaurants/${restaurantId}/recipes/${_id}`}>
             <Typography variant="title">
               { name }
             </Typography>
@@ -69,4 +69,4 @@ class StudentItem extends PureComponent {
   }
 }
 
-export default StudentItem
+export default RecipeItem

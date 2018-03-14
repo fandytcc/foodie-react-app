@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import StudentItem from '../../containers/students/StudentItem'
-import { studentShape } from '../../containers/students/StudentPage'
-import { fetchOneBatch } from '../../actions/batches/fetch'
-import StudentEditor from '../../containers/students/StudentEditor'
+import RecipeItem from '../../containers/recipes/RecipeItem'
+import { recipeShape } from '../../containers/recipes/RecipePage'
+import { fetchOneRestaurant } from '../../actions/restaurants/fetch'
+import RecipeEditor from '../../containers/recipes/RecipeEditor'
 //material-ui & styling
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
@@ -12,7 +12,7 @@ import Typography from 'material-ui/Typography'
 import Avatar from 'material-ui/Avatar'
 import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List'
 import Dialog, { DialogTitle } from 'material-ui/Dialog'
-import './BatchPage.css'
+import './RestaurantPage.css'
 
 //styling Paper
 const style = {
@@ -23,31 +23,31 @@ const style = {
   marginLeft: 90,
 }
 
-export const batchShape = PropTypes.shape({
+export const restaurantShape = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  students: PropTypes.arrayOf(studentShape),
+  recipes: PropTypes.arrayOf(recipeShape),
   startDate: PropTypes.string,
   endDate: PropTypes.string,
 })
 
-class BatchPage extends PureComponent {
+class RestaurantPage extends PureComponent {
   state = {
     open: false,
   }
 
   static propTypes = {
-    ...batchShape.isRequired,
+    ...restaurantShape.isRequired,
     result: PropTypes.string,
-    fetchOneBatch: PropTypes.func.isRequied
+    fetchOneRestaurant: PropTypes.func.isRequied
   }
 
   componentWillMount() {
-    this.props.fetchOneBatch(this.props.match.params.batchId)
+    this.props.fetchOneRestaurant(this.props.match.params.restaurantId)
   }
 
-  renderStudent(student, index) {
-    return <StudentItem key={index} batchId={this.props.match.params.batchId} { ...student } />
+  renderRecipe(recipe, index) {
+    return <RecipeItem key={index} restaurantId={this.props.match.params.restaurantId} { ...recipe } />
   }
 
   createWeightedList(list, weight) {
@@ -67,9 +67,9 @@ class BatchPage extends PureComponent {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
-  getRandomStudent(event) {
+  getRandomRecipe(event) {
     event.preventDefault()
-    const { students } = this.props.batch
+    const { recipes } = this.props.restaurant
 
     const colorList = ["G", "Y", "R"]
     const weight = [0.21, 0.32, 0.47]
@@ -77,24 +77,24 @@ class BatchPage extends PureComponent {
     const randomNum = this.getRandomNum(0, weightedList.length-1)
     const randomColor = weightedList[randomNum]
 
-    const greenStudents = students.filter(student => student.evaluations[student.evaluations.length-1].code === "G")
-    const yellowStudents = students.filter(student => student.evaluations[student.evaluations.length-1].code === "Y")
-    const redStudents = students.filter(student => student.evaluations[student.evaluations.length-1].code === "R")
+    const greenRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "G")
+    const yellowRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "Y")
+    const redRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "R")
 
     let result =""
     let result2 = ""
       if (randomColor === "G") {
-        const randomNum = this.getRandomNum(0, greenStudents.length-1)
-        result = greenStudents && greenStudents[randomNum].name
-        result2 = greenStudents && greenStudents[randomNum].photo
+        const randomNum = this.getRandomNum(0, greenRecipes.length-1)
+        result = greenRecipes && greenRecipes[randomNum].name
+        result2 = greenRecipes && greenRecipes[randomNum].photo
       } else if (randomColor === "Y") {
-        const randomNum = this.getRandomNum(0, yellowStudents.length-1)
-        result = yellowStudents && yellowStudents[randomNum].name
-        result2 = yellowStudents && yellowStudents[randomNum].photo
+        const randomNum = this.getRandomNum(0, yellowRecipes.length-1)
+        result = yellowRecipes && yellowRecipes[randomNum].name
+        result2 = yellowRecipes && yellowRecipes[randomNum].photo
       } else if (randomColor === "R") {
-        const randomNum = this.getRandomNum(0, redStudents.length-1)
-        result = redStudents && redStudents[randomNum].name
-        result2 = redStudents && redStudents[randomNum].photo
+        const randomNum = this.getRandomNum(0, redRecipes.length-1)
+        result = redRecipes && redRecipes[randomNum].name
+        result2 = redRecipes && redRecipes[randomNum].photo
       }
       alert(result)
       alert(result2)
@@ -110,31 +110,31 @@ class BatchPage extends PureComponent {
   // }
 
   render() {
-    if (!this.props.batch) return null
+    if (!this.props.restaurant) return null
 
-    const { _id, title, students } = this.props.batch
-    // console.log(this.props.match.params.batchId)
-    const batchSize = students.length
+    const { _id, title, recipes } = this.props.restaurant
+    // console.log(this.props.match.params.restaurantId)
+    const restaurantSize = recipes.length
 
-    const greenStudents = students.filter(student => student.evaluations[student.evaluations.length-1].code === "G")
-    const redStudents = students.filter(student => student.evaluations[student.evaluations.length-1].code === "R")
-    const yellowStudents = students.filter(student => student.evaluations[student.evaluations.length-1].code === "Y")
+    const greenRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "G")
+    const redRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "R")
+    const yellowRecipes = recipes.filter(recipe => recipe.evaluations[recipe.evaluations.length-1].code === "Y")
 
-    const greenPercentage = Math.round(greenStudents.length/batchSize*100)
-    const redPercentage = Math.round(redStudents.length/batchSize*100)
-    const yellowPercentage = Math.round(yellowStudents.length/batchSize*100)
+    const greenPercentage = Math.round(greenRecipes.length/restaurantSize*100)
+    const redPercentage = Math.round(redRecipes.length/restaurantSize*100)
+    const yellowPercentage = Math.round(yellowRecipes.length/restaurantSize*100)
 
     return (
-      <article className="batch-page">
+      <article className="restaurant-page">
         <Paper style={style}>
-          <div className="student-editor">
-            <StudentEditor batchId={this.props.match.params.batchId} />
+          <div className="recipe-editor">
+            <RecipeEditor restaurantId={this.props.match.params.restaurantId} />
           </div>
         </Paper>
 
         <header className="blocks-wrapper">
           <Typography variant="display1">
-            Students Overview in Batch#{title}
+            Recipes Overview in Restaurant#{title}
           </Typography>
 
           <Typography variant="display1" style={{float:'left', marginRight: 20}}>Evaluations Overview</Typography>
@@ -143,7 +143,7 @@ class BatchPage extends PureComponent {
             variant="raised"
             className="primary"
             color="primary"
-            onClick={this.getRandomStudent.bind(this)}>
+            onClick={this.getRandomRecipe.bind(this)}>
             Ask a question
           </Button>
 
@@ -162,9 +162,9 @@ class BatchPage extends PureComponent {
           </div>
         </header>
 
-        <main className="students-wrapper">
-          <div className="students">
-            {students.map(this.renderStudent.bind(this))}
+        <main className="recipes-wrapper">
+          <div className="recipes">
+            {recipes.map(this.renderRecipe.bind(this))}
           </div>
         </main>
 
@@ -174,7 +174,7 @@ class BatchPage extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  batch: state.batches.selectedBatch,
+  restaurant: state.restaurants.selectedRestaurant,
 })
 
-export default connect(mapStateToProps, { fetchOneBatch })(BatchPage)
+export default connect(mapStateToProps, { fetchOneRestaurant })(RestaurantPage)

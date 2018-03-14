@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { createStudent } from '../../actions/batches/create'
+import { createRecipe } from '../../actions/restaurants/create'
 //material-ui
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import '../batches/BatchPage.css'
+import '../restaurants/RestaurantPage.css'
 
-class StudentEditor extends PureComponent {
+class RecipeEditor extends PureComponent {
   constructor(props) {
     super()
 
@@ -31,22 +31,22 @@ class StudentEditor extends PureComponent {
     })
   }
 
-  saveStudent() {
-    const student = { ...this.state }
-    this.props.createStudent(this.props.batchId, student)
+  saveRecipe() {
+    const recipe = { ...this.state }
+    this.props.createRecipe(this.props.restaurantId, recipe)
   }
 
   render() {
     return (
-      <div className="student-editor">
-        <Typography variant="headline">Create New Student</Typography>
-        <form onSubmit={this.saveStudent.bind(this)}>
+      <div className="recipe-editor">
+        <Typography variant="headline">Create New Recipe</Typography>
+        <form onSubmit={this.saveRecipe.bind(this)}>
           <div className="form">
             <TextField
               type="text"
               id="name"
               className="text-field"
-              label="Student's full name"
+              label="Recipe's full name"
               defaultValue={this.state.name}
               onChange={this.updateName.bind(this)}
               onKeyDown={this.updateName.bind(this)}
@@ -58,7 +58,7 @@ class StudentEditor extends PureComponent {
               type="URL"
               id="photo"
               className="text-field"
-              label="Student Photo URL"
+              label="Recipe Photo URL"
               defaultValue={this.state.photo}
               onChange={this.updatePhoto.bind(this)}
               onKeyDown={this.updatePhoto.bind(this)}
@@ -70,7 +70,7 @@ class StudentEditor extends PureComponent {
               variant="raised"
               className="primary"
               color="primary"
-              onClick={this.saveStudent.bind(this)}>Create Student</Button>
+              onClick={this.saveRecipe.bind(this)}>Create Recipe</Button>
           </div>
         </form>
       </div>
@@ -78,6 +78,6 @@ class StudentEditor extends PureComponent {
   }
 }
 
-const mapDispatchToProps = { createStudent }
+const mapDispatchToProps = { createRecipe }
 
-export default connect(null, mapDispatchToProps)(StudentEditor)
+export default connect(null, mapDispatchToProps)(RecipeEditor)

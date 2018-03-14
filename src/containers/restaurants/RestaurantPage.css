@@ -22,7 +22,7 @@
   color: #1A535C;
 }
 
-.students-wrapper {
+.recipes-wrapper {
   float: left;
   margin-left: 120px;
   margin-right: 120px;
@@ -31,7 +31,7 @@
   justify-content: center;
 }
 
-.student-editor {
+.recipe-editor {
   margin-top: 15px;
   margin-left: 20px;
 }

@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push, replace } from 'react-router-redux'
-import { fetchOneBatch, fetchOneStudent } from '../../actions/batches/fetch'
-import { updateStudent, clearStudent } from '../../actions/batches/update'
+import { fetchOneRestaurant, fetchOneRecipe } from '../../actions/restaurants/fetch'
+import { updateRecipe, clearRecipe } from '../../actions/restaurants/update'
 //material-ui & styling
 import Paper from 'material-ui/Paper'
 import Typography from 'material-ui/Typography'
@@ -14,7 +14,7 @@ import ThumbsUpDownIcon from 'material-ui-icons/ThumbsUpDown'
 import ThumbDownIcon from 'material-ui-icons/ThumbDown'
 import ThumbUpIcon from 'material-ui-icons/ThumbUp'
 import Tooltip from 'material-ui/Tooltip'
-import './StudentPage.css'
+import './RecipePage.css'
 
 //styling Paper
 const paperStyle = {
@@ -24,14 +24,14 @@ const paperStyle = {
   margin: 20
 }
 
-export const studentShape = PropTypes.shape({
+export const recipeShape = PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequied,
     evaluations: PropTypes.array,
 })
 
-class StudentPage extends PureComponent {
+class RecipePage extends PureComponent {
 
   state = {
     name: "",
@@ -51,11 +51,11 @@ class StudentPage extends PureComponent {
   // }
 
   componentWillMount() {
-    const batchId = this.props.match.params.batchId
-    const studentId = this.props.match.params.studentId
+    const restaurantId = this.props.match.params.restaurantId
+    const recipeId = this.props.match.params.recipeId
 
-    this.props.fetchOneBatch(batchId)
-    this.props.fetchOneStudent(batchId, studentId)
+    this.props.fetchOneRestaurant(restaurantId)
+    this.props.fetchOneRecipe(restaurantId, recipeId)
   }
 
   handleClick = (evaluationId) => {
@@ -64,7 +64,7 @@ class StudentPage extends PureComponent {
 
 // view selected evaluation details after pressing EDIT button
   selectEvaluation(evaluationId) {
-    const { evaluations } = this.props.student
+    const { evaluations } = this.props.recipe
     const selectedEvaluation = evaluations.filter(evaluation => evaluation._id === evaluationId)[0]
 
     this.setState({
@@ -103,12 +103,12 @@ class StudentPage extends PureComponent {
     )
   }
 
-//Edit student button for name & photo only, use dialogue
-  editStudent() {
-    const { student } = this.props
+//Edit recipe button for name & photo only, use dialogue
+  editRecipe() {
+    const { recipe } = this.props
     this.setState({
-      name: student.name,
-      photo: student.photo
+      name: recipe.name,
+      photo: recipe.photo
     })
   }
 
@@ -126,71 +126,71 @@ class StudentPage extends PureComponent {
     })
   }
 
-  goToBatch() {
-    const { batchId } = this.props.match.params
-    this.props.push(`/batches/${batchId}`)
+  goToRestaurant() {
+    const { restaurantId } = this.props.match.params
+    this.props.push(`/restaurants/${restaurantId}`)
   }
 
-//save student button
-  saveStudent(event) {
+//save recipe button
+  saveRecipe(event) {
     event.preventDefault()
-    const { batchId, studentId } = this.props.match.params
-    const studentUpdates = { ...this.state }
-    this.props.updateStudent(batchId, studentId, studentUpdates)
-    this.goToBatch()
+    const { restaurantId, recipeId } = this.props.match.params
+    const recipeUpdates = { ...this.state }
+    this.props.updateRecipe(restaurantId, recipeId, recipeUpdates)
+    this.goToRestaurant()
   }
 
-// save student and next button
-  findNextStudent() {
-    const { studentId } = this.props.match.params
-    const { batch } = this.props
+// save recipe and next button
+  findNextRecipe() {
+    const { recipeId } = this.props.match.params
+    const { restaurant } = this.props
 
-    let studentIndex = batch.students.findIndex(student => student._id === studentId)
-    let nextStudentIndex = studentIndex + 1
+    let recipeIndex = restaurant.recipes.findIndex(recipe => recipe._id === recipeId)
+    let nextRecipeIndex = recipeIndex + 1
 
-    if (nextStudentIndex === batch.students.length) {
-      return batch.students[0]._id
+    if (nextRecipeIndex === restaurant.recipes.length) {
+      return restaurant.recipes[0]._id
     } else {
-      return batch.students[nextStudentIndex]._id
+      return restaurant.recipes[nextRecipeIndex]._id
     }
   }
 
-  goToNextStudent() {
-    const { batchId } = this.props.match.params
-    const nextStudentId = this.findNextStudent()
-    this.props.replace(`/batches/${batchId}/students/${nextStudentId}`)
+  goToNextRecipe() {
+    const { restaurantId } = this.props.match.params
+    const nextRecipeId = this.findNextRecipe()
+    this.props.replace(`/restaurants/${restaurantId}/recipes/${nextRecipeId}`)
   }
 
-  saveStudentAndNext(event) {
-    this.saveStudent(event)
-    this.goToNextStudent()
+  saveRecipeAndNext(event) {
+    this.saveRecipe(event)
+    this.goToNextRecipe()
   }
 
-//delete student button
-  clearStudent() {
-    const { batchId, studentId } = this.props.match.params
-    this.props.clearStudent(batchId, studentId)
-    this.goToBatch()
+//delete recipe button
+  clearRecipe() {
+    const { restaurantId, recipeId } = this.props.match.params
+    this.props.clearRecipe(restaurantId, recipeId)
+    this.goToRestaurant()
   }
 
   render() {
-    if (!this.props.batch || !this.props.student) return null
-    const { name, photo, evaluations } = this.props.student
+    if (!this.props.restaurant || !this.props.recipe) return null
+    const { name, photo, evaluations } = this.props.recipe
     const { selected } = this.state
     console.log(this.props)
 
     return(
-      <Paper className="student-container" style={paperStyle} elevation={2}>
-        <div className="student-details">
+      <Paper className="recipe-container" style={paperStyle} elevation={2}>
+        <div className="recipe-details">
 
           <div className="photo">
-            { photo && <Avatar src={ photo } style={{width:200, height:200 }} alt="Student Images" /> }
+            { photo && <Avatar src={ photo } style={{width:200, height:200 }} alt="Recipe Images" /> }
           </div>
 
           <div className="info">
             <Typography variant="headline">{ name }</Typography>
             <Typography variant="title">
-              Batch# {this.props.batch && this.props.batch.title}
+              Restaurant# {this.props.restaurant && this.props.restaurant.title}
             </Typography>
           </div>
 
@@ -203,7 +203,7 @@ class StudentPage extends PureComponent {
         </div>
 
       <div className="evaluation-form">
-        <form onSubmit={this.saveStudent.bind(this)}>
+        <form onSubmit={this.saveRecipe.bind(this)}>
           <Typography variant="title">Daily Evaluation for
             <TextField
               id="evaluationDate"
@@ -280,28 +280,28 @@ class StudentPage extends PureComponent {
               className="submit-button"
               color="primary"
               style={{margin:5}}
-              onClick={ this.clearStudent.bind(this) }>DELETE</Button>
+              onClick={ this.clearRecipe.bind(this) }>DELETE</Button>
 
             <Button
               variant="raised"
               className="submit-button"
               color="primary"
               style={{margin:5}}
-              onClick={ this.editStudent.bind(this) }>EDIT</Button>
+              onClick={ this.editRecipe.bind(this) }>EDIT</Button>
 
             <Button
               variant="raised"
               className="submit-button"
               color="primary"
               style={{margin:5}}
-              onClick={ this.saveStudent.bind(this) }>SAVE</Button>
+              onClick={ this.saveRecipe.bind(this) }>SAVE</Button>
 
             <Button
               variant="raised"
               className="submit-button"
               color="primary"
               style={{margin:5}}
-              onClick={this.saveStudentAndNext.bind(this)}>SAVE & NEXT</Button>
+              onClick={this.saveRecipeAndNext.bind(this)}>SAVE & NEXT</Button>
           </div>
         </form>
       </div>
@@ -310,22 +310,22 @@ class StudentPage extends PureComponent {
   }
 }
 
-const mapStateToProps = ( { batches }, { match }) => ({
-  batch: batches.selectedBatch,
-  student: batches.selectedStudent
+const mapStateToProps = ( { restaurants }, { match }) => ({
+  restaurant: restaurants.selectedRestaurant,
+  recipe: restaurants.selectedRecipe
 })
 
-//job-to-be-done... change all match.params.studentId to student._id: find student under fetchOneBatch to ensure rendering of next student works..
-// const mapStateToProps = ( { batches }, { match }) => ({
-//   batch: batches.selectedBatch,
-//   student: batches.studentsPerBatch.find(student => student._id === match.params.studentId)
+//job-to-be-done... change all match.params.recipeId to recipe._id: find recipe under fetchOneRestaurant to ensure rendering of next recipe works..
+// const mapStateToProps = ( { restaurants }, { match }) => ({
+//   restaurant: restaurants.selectedRestaurant,
+//   recipe: restaurants.recipesPerRestaurant.find(recipe => recipe._id === match.params.recipeId)
 // })
 
 export default connect(mapStateToProps, {
-fetchOneBatch,
-fetchOneStudent,
-updateStudent,
-clearStudent,
+fetchOneRestaurant,
+fetchOneRecipe,
+updateRecipe,
+clearRecipe,
 push,
 replace
-})(StudentPage)
+})(RecipePage)

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { batchShape } from './BatchPage'
+import { restaurantShape } from './RestaurantPage'
 //material-ui
 import Title from '../../components/UI/Title'
 import Paper from 'material-ui/Paper'
@@ -16,23 +16,23 @@ const style = {
   display: 'inline-block'
 }
 
-class BatchItem extends PureComponent {
+class RestaurantItem extends PureComponent {
   static propTypes = {
-    ...batchShape.isRequired,
+    ...restaurantShape.isRequired,
 }
 
   render() {
-    const { _id, title, students, startDate, endDate } = this.props
+    const { _id, title, recipes, startDate, endDate } = this.props
     const startDateString = (new Date(startDate)).toDateString()
     const endDateString = (new Date(endDate)).toDateString()
 
     return (
-      <Paper className="BatchItem" style={style} elevation={2}>
-        <Link to={`/batches/${_id}`}>
-          <Title content={`Batch #${title}`} className="level-2" />
+      <Paper className="RestaurantItem" style={style} elevation={2}>
+        <Link to={`/restaurants/${_id}`}>
+          <Title content={`Restaurant #${title}`} className="level-2" />
         </Link>
         <div style={{textAlign: 'center'}}>
-          <p>{ students.length } students</p>
+          <p>{ recipes.length } recipes</p>
           <p>Start Date: { startDateString } </p>
           <p>End Date: { endDateString } </p>
         </div>
@@ -41,4 +41,4 @@ class BatchItem extends PureComponent {
   }
 }
 
-export default BatchItem
+export default RestaurantItem
