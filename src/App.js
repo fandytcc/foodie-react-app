@@ -1,14 +1,12 @@
-// src/App.js
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Navigation from './components/UI/Navigation'
 import Routes from './routes'
+import Navigation from './components/UI/Navigation'
+//material-ui & styling
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import createMuiTheme from './styles/theme'
-// import Map from './components/Map'
-// import Places from './components/Places'
+import './App.css'
 // import { PlacesWithStandaloneSearchBox } from './components/SearchBar'
-// import { Marker } from 'react-google-maps'
 
 class App extends Component {
 

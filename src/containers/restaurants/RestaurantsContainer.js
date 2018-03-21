@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 // import { push } from 'react-router-redux'
 import RestaurantItem from './RestaurantItem'
+// import MapContainer from './containers/MapContainer'
 // import RestaurantEditor from './RestaurantEditor'
 import { restaurantShape } from './RestaurantPage'
 import { fetchRestaurants } from '../../actions/restaurants/fetch'
@@ -30,34 +31,39 @@ class RestaurantsContainer extends PureComponent {
     // console.log(this.props)
 
     return (
-      <div className="restaurants-container">
-        <div className="top-box">
-          <Typography variant="headline" component="h1">
-            Restaurants in Amsterdam
-          </Typography>
-          <Typography variant="headline" component="h2">
-            <strong>{restaurants.length}</strong> results founds
-          </Typography>
-
-          <div className="map-search">
-            google map search bar component
-          </div>
-
-          <div className="restaurants-type">
-            <ul>
-              <li>Breakfast</li>
-              <li>Lunch</li>
-              <li>Dinner</li>
-              <li>Cafe</li>
-              <li>Dessert</li>
-            </ul>
-          </div>
+      <div className="main-container">
+        <div className="side-bar">
+          Map
         </div>
 
-        <div className="restaurants-wrap">
-          { this.props.restaurants.map(this.renderRestaurant) }
-        </div>
+        <div className="restaurants-container">
+          <div className="top-box">
+            <Typography variant="headline" component="h1">
+              Restaurants in Amsterdam
+            </Typography>
+            <Typography variant="headline" component="h2">
+              <strong>{restaurants.length}</strong> results founds
+            </Typography>
 
+            <div className="map-search">
+              google map search bar component
+            </div>
+
+            <div className="restaurants-type">
+              <ul>
+                <li>Breakfast</li>
+                <li>Lunch</li>
+                <li>Dinner</li>
+                <li>Cafe</li>
+                <li>Dessert</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="restaurants-wrap">
+            { this.props.restaurants.map(this.renderRestaurant) }
+          </div>
+        </div>
       </div>
     )
   }
