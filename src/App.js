@@ -6,7 +6,6 @@ import Navigation from './components/UI/Navigation'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import createMuiTheme from './styles/theme'
 import './App.css'
-// import { PlacesWithStandaloneSearchBox } from './components/SearchBar'
 
 class App extends Component {
 

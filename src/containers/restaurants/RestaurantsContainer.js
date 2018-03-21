@@ -44,20 +44,6 @@ class RestaurantsContainer extends PureComponent {
             <Typography variant="headline" component="h2">
               <strong>{restaurants.length}</strong> results founds
             </Typography>
-
-            <div className="map-search">
-              google map search bar component
-            </div>
-
-            <div className="restaurants-type">
-              <ul>
-                <li>Breakfast</li>
-                <li>Lunch</li>
-                <li>Dinner</li>
-                <li>Cafe</li>
-                <li>Dessert</li>
-              </ul>
-            </div>
           </div>
 
           <div className="restaurants-wrap">
