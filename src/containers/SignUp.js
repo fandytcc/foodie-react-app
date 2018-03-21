@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import signUp from '../actions/user/sign-up'
-import Title from '../components/UI/Title'
 //material-ui
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
@@ -165,7 +164,7 @@ export class SignUp extends PureComponent {
 
     return (
       <Paper style={ dialogStyle }>
-        <Title content="Sign Up" level={2} />
+        <h1> content="Sign Up" level={2} </h1>
 
         <form onSubmit={this.submitForm.bind(this)}>
           <div className="input">
