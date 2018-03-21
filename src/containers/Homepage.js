@@ -8,7 +8,7 @@ class Homepage extends PureComponent {
   render() {
     return (
       <div className="home-wrapper">
-        <div className="top-box">
+        <div className="search-wrapper">
           <div className="search-bar">
             <PlacesWithStandaloneSearchBox />
           </div>
