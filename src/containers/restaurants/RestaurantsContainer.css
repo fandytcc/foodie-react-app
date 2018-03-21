@@ -1,11 +1,46 @@
-.Restaurant {
-  padding: 20px;
-  margin: 20px auto;
-  width: 80%;
+.main-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(1fr));
 }
 
-.Restaurant .paper {
-  margin-top: 40px;
-  padding: 10px;
+.side-bar {
+  grid-column: 1/2;
+  margin: 0;
+  padding: 30px;
+}
+
+.restaurants-container {
+  float: right;
+  border-left: 2px solid var(--grey90);
+  padding: 20px;
+  grid-column: 2/5;
+}
+
+.top-box{
+  padding: 0;
   text-align: left;
+}
+
+.restaurants-wrap {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+@media(max-width: 1400px) {
+  .main-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(1fr));
+  }
+
+  .side-bar {
+    display: none;
+  }
+
+  .restaurants-container {
+    width: 100%;
+    grid-column: 1/4;
+    padding: 20px;
+  }
+
 }

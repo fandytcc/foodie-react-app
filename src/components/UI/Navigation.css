@@ -1,11 +1,14 @@
-.title {
-  flex: 1;
-  cursor: pointer;
-  display: flex !important;
-  color: #FFF !important;
+.navbar {
+  box-shadow: none;
+  border-bottom: 2px solid var(--green);
 }
 
-.icon-button {
-  margin-left: -12px;
-  margin-right: 20px;
+/* .logo-img {
+  max-height: 45px;
+} */
+
+@media(max-width: 800px) {
+  .btn-responsive{
+    display: none !important;
+  }
 }
