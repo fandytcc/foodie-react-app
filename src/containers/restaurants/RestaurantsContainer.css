@@ -1,11 +1,16 @@
-.Restaurant {
+.restaurants-container {
+  float: right;
+  border-left: 2px solid var(--grey90);
   padding: 20px;
-  margin: 20px auto;
-  width: 80%;
 }
 
-.Restaurant .paper {
-  margin-top: 40px;
-  padding: 10px;
+.top-box{
+  padding: 0;
   text-align: left;
+}
+
+.restaurants-wrap {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }

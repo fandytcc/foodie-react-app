@@ -30,16 +30,20 @@ class RestaurantsContainer extends PureComponent {
     // console.log(this.props)
 
     return (
-      <div className="restaurant-container">
+      <div className="restaurants-container">
         <div className="top-box">
-          <h1>Restaurants in Amsterdam</h1>
+          <Typography variant="headline" component="h1">
+            Restaurants in Amsterdam
+          </Typography>
           <Typography variant="headline" component="h2">
             <strong>{restaurants.length}</strong> results founds
           </Typography>
 
-          <div>google map search bar component</div>
+          <div className="map-search">
+            google map search bar component
+          </div>
 
-          <div className="restaurant-type">
+          <div className="restaurants-type">
             <ul>
               <li>Breakfast</li>
               <li>Lunch</li>

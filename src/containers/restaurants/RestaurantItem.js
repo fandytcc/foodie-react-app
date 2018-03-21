@@ -3,19 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { restaurantShape } from './RestaurantPage'
-//material-ui
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
-import Typography from 'material-ui/Typography'
+import './RestaurantItem.css'
 
-//style Card
-const styles = {
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 200,
-  },
-}
+const PLACEHOLDER = 'http://via.placeholder.com/350x180?text=No%20Image'
 
 class RestaurantItem extends PureComponent {
   static propTypes = {
@@ -30,38 +20,54 @@ class RestaurantItem extends PureComponent {
   }
 
   renderAvgRating() {
+    const { avgRating } = this.props
+    const star = Math.round(avgRating/2)
 
+    switch (star) {
+      case 1:
+        return '⭐✩✩✩✩'
+      case 2:
+        return '⭐⭐✩✩✩'
+      case 3:
+        return '⭐⭐⭐✩✩'
+      case 4:
+        return '⭐⭐⭐⭐✩'
+      case 5:
+        return '⭐⭐⭐⭐⭐'
+      default:
+        return '✩✩✩✩✩'
+    }
   }
 
   render() {
-    console.log(this.props)
-    const { _id, name, reviews, price, photos, avgRating  } = this.props
+    const { _id, name, reviews, price, photos  } = this.props
     const reviewCount = reviews.length
 
     return (
       <div className="restaurant-item">
-        <Card className="restaurant-wrapper" style={ styles.card }>
-          <Link to={`/restaurants/${_id}`}>
-            <CardMedia
-              className="restaurant-photo"
-              style={ styles.media }
-              image= { photos[0].url }
-              title= "Restaurant Item"
-            />
-          </Link>
-          <CardContent>
-            <Typography variant="headline" component="h2">
-              { name }
-            </Typography>
-            <Typography component="p">
-              { avgRating }
-            </Typography>
-              { this.renderPrice(price) }
-            <Typography component="p">
-              { reviewCount } Reviews
-            </Typography>
-          </CardContent>
-        </Card>
+        <Link to={`/restaurants/${_id}`}>
+          <div
+            className="restaurant-cover"
+            style={{ backgroundImage:`url(${ photos[0].url || PLACEHOLDER })` }} />
+        </Link>
+
+        <div className="like-button">
+          LikeButton
+        </div>
+
+        <div className="restaurant-content">
+          <div className="restaurant-name">
+            <h2>{ name }</h2>
+          </div>
+
+          <div className="restaurant-info" style={{color: 'grey'}}>
+            <h4><span className="rating">{ this.renderAvgRating() }</span> - { reviewCount } Reviews - address</h4>
+          </div>
+
+          <div id="restaurant-price">
+            {this.renderPrice(price)}
+          </div>
+        </div>
       </div>
     )
   }
