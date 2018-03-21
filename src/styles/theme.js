@@ -6,46 +6,28 @@ export const red          = '#FF6B6B'
 export const yellow       = '#FFE66D'
 export const babyBlue     = '#B9E1DC'
 export const white        = '#ffffff'
-export const black        = '#000000'
-export const grey         = '#FBFBFB'
+export const black        = '#222'
+export const grey         = '#666'
 export const grey50       = 'rgba(222, 222, 222, 0.5)'
 export const grey30       = 'rgba(222, 222, 222, 0.7)'
-
-//Background
-const mintCream           = '#F7FFF7'
-const paperDark           = '#1A535C'
-const defaultDark         = '#1A535C'
-const appBarEnglishGreen  = '#1A535C'
-const contentFrameDark    = '#1A535C'
-const chipDark            = '#1A535C'
-const avatarDark          = '#1A535C'
 
 // Palette
 const theme = createMuiTheme({
    palette: {
      primary: {
-       light: green,
-       main: babyBlue,
-       dark: babyBlue,
-       contrastText: grey,
+       light: babyBlue,
+       main: white,
+       dark: green,
+       contrastText: black,
      },
      secondary: {
        light: grey30,
-       main: mintCream,
+       main: green,
        dark: grey,
-       contrastText: black,
+       contrastText: grey,
      },
-     background: {
-       paperDark: paperDark,
-       mintCream: mintCream,
-       defaultDark: defaultDark,
-       appBarEnglishGreen: appBarEnglishGreen,
-       contentFrameDark: contentFrameDark,
-       chipDark: chipDark,
-       avatarDark: avatarDark
-     },
-     status: {
-       danger: 'orange',
+     typography: {
+      fontFamily: ['Nunito', 'sans-serif'],
      },
    }
  })
