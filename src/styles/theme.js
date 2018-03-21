@@ -29,6 +29,9 @@ const theme = createMuiTheme({
      typography: {
       fontFamily: ['Nunito', 'sans-serif'],
      },
+     background: {
+       paper: white,
+     }
    }
  })
 
