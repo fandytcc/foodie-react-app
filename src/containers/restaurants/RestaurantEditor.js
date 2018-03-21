@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { createRestaurant } from '../../actions/restaurants/create'
-import Title from '../../components/UI/Title'
 //material-ui & styling
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
@@ -55,7 +54,7 @@ class RestaurantEditor extends PureComponent {
   render() {
     return (
       <Paper className="editor" style={style} elevation={2}>
-        <Title content="Create New Restaurant: " />
+        <h1>Create New Restaurant:</h1>
 
         <form onSubmit={this.saveRestaurant.bind(this)} className="container">
           <div className="form" style={{margin: 20}}>
