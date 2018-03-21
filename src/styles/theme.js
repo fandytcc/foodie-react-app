@@ -15,15 +15,15 @@ export const grey30       = 'rgba(222, 222, 222, 0.7)'
 const theme = createMuiTheme({
    palette: {
      primary: {
-       light: babyBlue,
+       light: white,
        main: white,
        dark: green,
        contrastText: black,
      },
      secondary: {
-       light: grey30,
-       main: green,
-       dark: grey,
+       light: babyBlue,
+       main: yellow,
+       dark: green,
        contrastText: grey,
      },
      typography: {

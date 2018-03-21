@@ -1,10 +1,10 @@
-// src/components/ui/Navigation.js
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import signOut from '../../actions/user/sign-out'
 //material-ui
+import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
@@ -12,6 +12,19 @@ import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import ActionHome from 'material-ui-icons/Home'
 import './Navigation.css'
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: 0,
+    marginRight: 20,
+  },
+})
 
 const TITLE = 'foodie fan'
 
@@ -36,26 +49,32 @@ class Navigation extends PureComponent {
   }
 
   render() {
-    const { signedIn } = this.props
+    const { signedIn, classes } = this.props
     return (
-      <AppBar position="static" style={{boxShadow:'none', width:`100%`}}>
-        <Toolbar>
-          <IconButton className="icon-button" color="inherit" aria-label="go-home" onClick={this.goHome}>
-            <ActionHome />
-          </IconButton>
-          <Typography variant="title" color="inherit" className="title" >
-            {TITLE}
-          </Typography>
-          { signedIn ?
-            <Button color="inherit" style={{position: "absolute", top: 10, right: 0 }} onClick={this.signOut.bind(this)}>Sign Out</Button> : <Button color="inherit" style={{position: "absolute", top: 10, right: 0 }} onClick={this.signUp}>Sign Up</Button> }
-        </Toolbar>
-      </AppBar>
+      <div className={classes.root}>
+        <AppBar position="static" className="navbar" style={{boxShadow:'none'}}>
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="go-home" onClick={this.goHome}>
+              <ActionHome />
+            </IconButton>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              {TITLE}
+            </Typography>
+            { signedIn ?
+              <Button className="btn btn-repsonsive" color="inherit" onClick={this.signOut.bind(this)}>Sign Out</Button> : <Button variant="raised" color="secondary" className="btn" onClick={this.signUp}>Sign Up</Button> }
+          </Toolbar>
+        </AppBar>
+      </div>
     )
   }
+}
+
+Navigation.propTypes = {
+  classes: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = ({ currentUser }) => ({
   signedIn: (!!currentUser && !!currentUser._id)
 })
 
-export default connect(mapStateToProps, { push, signOut })(Navigation)
+export default connect(mapStateToProps, { push, signOut }) (withStyles(styles)(Navigation))
