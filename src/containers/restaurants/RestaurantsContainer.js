@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 // import { push } from 'react-router-redux'
 import RestaurantItem from './RestaurantItem'
-// import MapContainer from './containers/MapContainer'
+import MapContainer from '../MapContainer'
 // import RestaurantEditor from './RestaurantEditor'
 import { restaurantShape } from './RestaurantPage'
 import { fetchRestaurants } from '../../actions/restaurants/fetch'
@@ -28,20 +28,20 @@ class RestaurantsContainer extends PureComponent {
   render() {
     if (!this.props.restaurants) return null
     const { restaurants } = this.props
-    // console.log(this.props)
+    console.log(this.props)
 
     return (
       <div className="main-container">
         <div className="side-bar">
-          Map
+          <MapContainer markers={restaurants} />
         </div>
 
         <div className="restaurants-container">
           <div className="top-box">
-            <Typography variant="headline" component="h1">
+            <Typography variant="headline">
               Restaurants in Amsterdam
             </Typography>
-            <Typography variant="headline" component="h2">
+            <Typography variant="headline">
               <strong>{restaurants.length}</strong> results founds
             </Typography>
           </div>

@@ -27,13 +27,15 @@ class MapContainer extends PureComponent {
   }
 
   render() {
-    const markers = this.props.markers.map((venue, i) => {
+    if (!this.props.markers) return null
+
+    const markers = this.props.markers.map((restaurant, i) => {
       const marker = {
         position: {
-          lat: venue.location[0],
-          lng: venue.location[1]
+          lat: restaurant.location.geo[1],
+          lng: restaurant.location.geo[0]
         },
-        label: venue.name
+        label: restaurant.name
       }
 
       return this.renderMarker(marker, i)
