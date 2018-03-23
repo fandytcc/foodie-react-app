@@ -1,26 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Marker } from 'react-google-maps'
+import { MyMapComponent } from '../../components/Map'
 import { fetchOneRestaurant } from '../../actions/restaurants/fetch'
 import { reviewShape } from '../../containers/reviews/ReviewPage'
 // import RecipeItem from '../../containers/recipes/RecipeItem'
 //material-ui & styling
-import Paper from 'material-ui/Paper'
-import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import Avatar from 'material-ui/Avatar'
-import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List'
-import Dialog, { DialogTitle } from 'material-ui/Dialog'
 import './RestaurantPage.css'
-
-//styling Paper
-const style = {
-  height: 250,
-  width: 300,
-  display: 'inline-block',
-  margin: 16,
-  marginLeft: 90,
-}
 
 export const restaurantShape = PropTypes.shape({
   _id: PropTypes.string.isRequired,
@@ -61,7 +49,7 @@ export const restaurantShape = PropTypes.shape({
 
 class RestaurantPage extends PureComponent {
   state = {
-    open: false,
+    isMarkerShown: false,
   }
 
   static propTypes = {
@@ -73,9 +61,35 @@ class RestaurantPage extends PureComponent {
     this.props.fetchOneRestaurant(this.props.match.params.restaurantId)
   }
 
+  componentDidMount() {
+    this.delayedShowMarker()
+  }
+
+  delayedShowMarker = () => {
+    setTimeout(() => {
+      this.setState({ isMarkerShown: true })
+    }, 2000)
+  }
+
+  handleMarkerClick = () => {
+    this.setState({ isMarkerShown: false })
+    this.delayedShowMarker()
+  }
+
+  renderSingleMarker(location, name) {
+    const marker = {
+      position: {
+        lat: location.geo[1],
+        lng: location.geo[0]
+      },
+      label: name
+    }
+    console.log(marker)
+    return <Marker {...marker} />
+  }
+
   renderObject(obj) {
     const objectKey = Object.keys(obj).map(function(key, i) {
-      console.log(key)
       return obj[key]===true ? key : null
     })
 
@@ -90,7 +104,6 @@ class RestaurantPage extends PureComponent {
     if (!this.props.restaurant) return null
 
     const { avgRating, dietaryType, likedBy, location, name, phone, photos, price, reviews, summary, types, url } = this.props.restaurant
-    console.log(photos)
     // console.log(this.props.match.params.restaurantId
 
     return (
@@ -112,16 +125,21 @@ class RestaurantPage extends PureComponent {
 
           Likebutton
 
-          <iframe className="location-map">
-
-          </iframe>
+          <div className="restaurant-map">
+            <MyMapComponent
+              isMarkerShown={this.state.isMarkerShown}
+              onMarkerClick={this.handleMarkerClick}
+              markers={this.renderSingleMarker(location, name)}/>
+          </div>
 
           <div className="photo-wrapper">
             {photos && photos.map(photo => <img src={photo.url} alt="" />)}
           </div>
 
           <summary className ="description">
-            {summary}
+            <Typography variant="title">
+              {summary}
+            </Typography>
           </summary>
         </section>
 
@@ -133,22 +151,13 @@ class RestaurantPage extends PureComponent {
           </header>
 
           <main className="top-recipes">
-
-
+            dish 1 dish 2 dish 3
           </main>
-
         </section>
-
       </article>
     )
   }
 }
-
-  // <main className="recipes-wrapper">
-  //   <div className="recipes">
-  //     {recipes.map(this.renderRecipe.bind(this))}
-  //   </div>
-  // </main>
 
 const mapStateToProps = state => ({
   restaurant: state.restaurants.selectedRestaurant,
