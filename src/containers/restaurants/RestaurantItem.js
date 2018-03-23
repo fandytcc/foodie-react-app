@@ -41,8 +41,6 @@ class RestaurantItem extends PureComponent {
 
   render() {
     const { _id, name, reviews, price, photos, location } = this.props
-    const reviewCount = reviews.length
-    // console.log(this.props)
 
     return (
       <div className="restaurant-item">
@@ -58,11 +56,13 @@ class RestaurantItem extends PureComponent {
 
         <div className="restaurant-content">
           <div className="restaurant-name">
-            <h2>{ name }</h2>
+            <Link to={`/restaurants/${_id}`}>
+              <h2>{ name }</h2>
+            </Link>
           </div>
 
           <div className="restaurant-info" style={{color: 'grey'}}>
-            <h4><span className="rating">{ this.renderAvgRating() }</span> - { reviewCount } Reviews - { location.address }, {location.postalCode}</h4>
+            <h4><span className="rating">{ this.renderAvgRating() }</span> - { reviews.length } Reviews - { location.address }, {location.postalCode}</h4>
           </div>
 
           <div id="restaurant-price">

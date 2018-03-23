@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { fetchOneRestaurant } from '../../actions/restaurants/fetch'
 import { reviewShape } from '../../containers/reviews/ReviewPage'
 // import RecipeItem from '../../containers/recipes/RecipeItem'
-// import RecipeEditor from '../../containers/recipes/RecipeEditor'
-
 //material-ui & styling
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
@@ -74,7 +72,16 @@ class RestaurantPage extends PureComponent {
   componentWillMount() {
     this.props.fetchOneRestaurant(this.props.match.params.restaurantId)
   }
-  //
+
+  renderObject(obj) {
+    const objectKey = Object.keys(obj).map(function(key, i) {
+      console.log(key)
+      return obj[key]===true ? key : null
+    })
+
+    return objectKey.join(' ')
+  }
+
   // renderRecipe(recipe, index) {
   //   return <RecipeItem key={index} restaurantId={this.props.match.params.restaurantId} { ...recipe } />
   // }
@@ -82,26 +89,55 @@ class RestaurantPage extends PureComponent {
   render() {
     if (!this.props.restaurant) return null
 
-    const { _id, name, reviews } = this.props.restaurant
+    const { avgRating, dietaryType, likedBy, location, name, phone, photos, price, reviews, summary, types, url } = this.props.restaurant
+    console.log(photos)
     // console.log(this.props.match.params.restaurantId
 
     return (
       <article className="restaurant-page">
-        <header className="blocks-wrapper">
-          <Typography variant="display1">
-            Recipes Overview in Restaurant#{name}
+        <header className="restaurant-header">
+          <Typography variant="display2">
+            {name}
           </Typography>
-
-          <Typography variant="display1" style={{float:'left', marginRight: 20}}>Evaluations Overview</Typography>
-
-          <Button
-            variant="raised"
-            className="primary"
-            color="primary"
-            onClick={this.getRandomRecipe.bind(this)}>
-            Ask a question
-          </Button>
         </header>
+
+        <section className="restaurant-details">
+          <div className="detailers-wrapper">
+            <Typography variant="title">
+              {avgRating} | {reviews && reviews.length} Review | Ranking in Amsterdam | {this.renderObject(price)} | {this.renderObject(types)} | {this.renderObject(dietaryType)}
+              <br />
+              { location.address }, {location.postalCode} | {phone} | {url}
+            </Typography>
+          </div>
+
+          Likebutton
+
+          <iframe className="location-map">
+
+          </iframe>
+
+          <div className="photo-wrapper">
+            {photos && photos.map(photo => <img src={photo.url} alt="" />)}
+          </div>
+
+          <summary className ="description">
+            {summary}
+          </summary>
+        </section>
+
+        <section className="top-recipes-wrapper">
+          <header>
+            <Typography variant="headline">
+              Top 3 dishes to order from this menu
+            </Typography>
+          </header>
+
+          <main className="top-recipes">
+
+
+          </main>
+
+        </section>
 
       </article>
     )
