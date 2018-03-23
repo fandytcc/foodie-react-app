@@ -84,7 +84,6 @@ class RestaurantPage extends PureComponent {
       },
       label: name
     }
-    console.log(marker)
     return <Marker {...marker} />
   }
 
