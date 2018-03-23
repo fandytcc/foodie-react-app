@@ -38,19 +38,21 @@ export const PlacesWithStandaloneSearchBox = compose(
     >
       <input
         type="text"
-        placeholder="amsterdam-zuid, amsterdam centraal, amsterdam-noord.."
+        placeholder="Amsterdam-zuid, Amsterdam centraal, Amsterdam-noord.."
         style={{
           boxSizing: `border-box`,
           border: `1px solid transparent`,
-          width: `50%`,
-          height: `45px`,
+          height: `70px`,
           padding: `0 20px`,
           borderTopLeftRadius: `40px`,
           borderBottomLeftRadius: `40px`,
           boxShadow: `0 2px 6px rgba(0, 0, 0, 0.1)`,
-          fontSize: `14px`,
+          fontSize: `24px`,
           outline: `none`,
           textOverflow: `ellipses`,
+          display: `flex`,
+          flexGrow: 1,
+          flexShrink: 1,
         }}
       />
     </StandaloneSearchBox>

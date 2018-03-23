@@ -12,7 +12,7 @@
 .restaurants-container {
   float: right;
   border-left: 2px solid var(--grey90);
-  padding: 20px;
+  padding: 20px 20px 20px 0px;
   grid-column: 2/5;
 }
 

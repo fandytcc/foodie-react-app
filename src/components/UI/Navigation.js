@@ -10,7 +10,6 @@ import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
-import ActionHome from 'material-ui-icons/Home'
 import './Navigation.css'
 
 const styles = theme => ({
@@ -21,12 +20,12 @@ const styles = theme => ({
     flex: 1,
   },
   menuButton: {
-    marginLeft: 0,
+    marginLeft: 50,
     marginRight: 20,
   },
 })
 
-const TITLE = 'foodie fan'
+const TITLE = 'FOODIE FAN'
 
 class Navigation extends PureComponent {
   static propTypes = {
@@ -55,9 +54,9 @@ class Navigation extends PureComponent {
         <AppBar position="static" className="navbar" style={{boxShadow:'none'}}>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="go-home" onClick={this.goHome}>
-              <ActionHome />
+              <img className="logo-img" src="https://png.icons8.com/color/96/000000/noodles.png" alt="foodie fan" />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography variant="display3" color="inherit" className={classes.flex}>
               {TITLE}
             </Typography>
             { signedIn ?
