@@ -41,27 +41,31 @@ class RestaurantsContainer extends PureComponent {
           <MapContainer markers={restaurants} />
 
           <div className="search-field">
-            <Typography variant="display1">Your Selections</Typography>
-            <Divider style={{ width: `150%` }}/>
+            <Typography variant="display1" color="inherit">Your Selections</Typography>
+            <Divider style={{ width: `100%` }}/>
 
             <div className="types">
-              <Typography variant="display1">Meals</Typography>
-              <CheckboxList array={typesArray}/>
+              <Typography variant="headline" color="inherit">Meals</Typography>
+              <CheckboxList array={typesArray} />
+              <Divider style={{ width: `100%` }}/>
             </div>
 
             <div className="location">
-              <Typography variant="display1" component="h1">Location</Typography>
+              <Typography variant="headline" color="inherit">Location</Typography>
               <CheckboxList array={locationArray}/>
+              <Divider style={{ width: `100%` }}/>
             </div>
 
             <div className="price">
-              <Typography variant="display1" component="h1">Price</Typography>
+              <Typography variant="headline" color="inherit">Price</Typography>
               <CheckboxList array={priceArray}/>
+              <Divider style={{ width: `100%` }}/>
             </div>
 
             <div className="dietary-type">
-              <Typography variant="display1" component="h1">Dietary Types</Typography>
+              <Typography variant="headline" color="inherit">Dietary Types</Typography>
               <CheckboxList array={dietaryTypesArray}/>
+              <Divider style={{ width: `100%` }}/>
             </div>
           </div>
         </div>

@@ -109,7 +109,7 @@ class RestaurantPage extends PureComponent {
     return (
       <article className="restaurant-page">
         <header className="restaurant-header">
-          <Typography variant="display2">
+          <Typography variant="display2" color="inherit">
             {name}
           </Typography>
         </header>
@@ -121,9 +121,11 @@ class RestaurantPage extends PureComponent {
               <br />
               { location.address }, {location.postalCode} | {phone} | {url}
             </Typography>
-          </div>
 
-          Likebutton
+            <div className="like-button">
+              LikeButton
+            </div>
+          </div>
 
           <div className="restaurant-map">
             <MyMapComponent
@@ -151,9 +153,27 @@ class RestaurantPage extends PureComponent {
           </header>
 
           <main className="top-recipes">
-            dish 1 dish 2 dish 3
+            <div className="recipe-1">
+              dish 1
+            </div>
+            <div className="recipe-1">
+              dish 2
+            </div>
+            <div className="recipe-1">
+              dish 3
+            </div>
           </main>
         </section>
+
+        <aside className="side-box-1">
+          Learn more about this cuisine
+        </aside>
+
+        <aside className="side-box-2">
+          Try Making these dishes at home!
+          Link 1 - suggested recipe
+          Link 2 - suggested recipe
+        </aside>
       </article>
     )
   }

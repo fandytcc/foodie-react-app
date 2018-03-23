@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Checkbox from 'material-ui/Checkbox'
-import Divider from 'material-ui/Divider'
 
 const styles = theme => ({
   root: {
@@ -42,7 +41,7 @@ class CheckboxList extends React.Component {
   render() {
     if (!this.props.array) return null
 
-    const { classes, array } = this.props
+    const {classes, array} = this.props
 
     return (
       <div className={classes.root}>
@@ -55,18 +54,19 @@ class CheckboxList extends React.Component {
               button
               onClick={this.handleToggle(value)}
               className={classes.listItem}
-              style={{ paddingBottom: 0 }}
+              style={{paddingBottom: 0}}
             >
               <Checkbox
                 checked={this.state.checked.indexOf(value) !== -1}
                 tabIndex={-1}
                 disableRipple
               />
-              <ListItemText secondary={this.capitalizeFirstLetter(value)} style={{ fontSize: 20}} />
+              <ListItemText
+                secondary={this.capitalizeFirstLetter(value)}
+                style={{fontSize: 20}} />
             </ListItem>
           ))}
         </List>
-        <Divider style={{ width: `150%` }}/>
       </div>
     )
   }

@@ -3,9 +3,9 @@
   border-bottom: 2px solid var(--green);
 }
 
-/* .logo-img {
-  max-height: 45px;
-} */
+.logo-img {
+  max-height: 55px;
+}
 
 @media(max-width: 800px) {
   .btn-responsive{
