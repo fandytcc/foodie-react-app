@@ -26,8 +26,8 @@
 .search-bar {
   display: flex;
   flex-direction: row;
-  padding: 300px 0;
-  align-items: center;
+  flex-wrap: wrap;
+  padding: 300px 300px;
   justify-content: center;
 }
 

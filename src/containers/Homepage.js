@@ -16,11 +16,12 @@ class Homepage extends PureComponent {
               variant="raised"
               color="secondary"
               style={{
-                height: 70,
+                minWidth: `120px`,
+                height: `70px`,
                 borderTopRightRadius: `40px`,
                 borderBottomRightRadius: `40px`,
                 fontSize: 24,
-                display: `flex`,
+                flex: `0 0 10%`
               }}>
               Search
             </Button>
