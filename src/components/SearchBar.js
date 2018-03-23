@@ -37,7 +37,7 @@ export const PlacesWithStandaloneSearchBox = compose(
       onPlacesChanged={props.onPlacesChanged}
     >
       <input
-        type="search"
+        type="text"
         placeholder="Amsterdam-zuid, Amsterdam Centraal.."
         style={{
           boxSizing: `border-box`,
@@ -51,7 +51,7 @@ export const PlacesWithStandaloneSearchBox = compose(
           fontSize: `24px`,
           outline: `none`,
           textOverflow: `ellipses`,
-          flex: `0 0 90%`
+          flex: `0 0 85%`
         }}
       />
     </StandaloneSearchBox>
